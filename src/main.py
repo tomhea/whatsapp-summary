@@ -1,18 +1,17 @@
 from pathlib import Path
 
 from definitions import CHATS_DIR
+from src.Chat import Chat
+
 
 TEST_PATH = CHATS_DIR / 'test_chat.txt'
 
 
-def get_number_of_lines_in_chat(chat_path: Path):
+def get_chat(chat_path: Path) -> Chat:
     with open(chat_path, 'r', encoding='utf-8') as chat_file:
-        return len(chat_file.readlines())
+        chat_str = chat_file.read()
 
-
-def get_first_chat_lines(chat_path: Path, number_of_lines: int):
-    with open(chat_path, 'r', encoding='utf-8') as chat_file:
-        return ''.join(chat_file.readline() for _ in range(number_of_lines))
+    return Chat(chat_str)
 
 
 # def get_whatsapp_summary(chat_path: Path, from_date: datetime, to_date: datetime) -> str:
@@ -20,8 +19,7 @@ def get_first_chat_lines(chat_path: Path, number_of_lines: int):
 
 
 def main():
-    print(f'The test chat has {get_number_of_lines_in_chat(TEST_PATH)} chat-lines.')
-    print(f'The first 10 lines are:\n{get_first_chat_lines(TEST_PATH, 10)}')
+    print(get_chat(TEST_PATH))
 
 
 if __name__ == '__main__':
